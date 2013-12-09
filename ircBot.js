@@ -10,8 +10,26 @@ var jarvis = new irc.Client(config.server, config.botName, {
 });
 
 jarvis.addListener('pm', function (nick, text, message) {
-  if(nick === 'thomaslangston'){
-    jarvis.say(nick, 'Hello');
+  if(IsAllowedNick(nick)){
+    Respond(nick, text, message);  
   }
 });
-//Provide talk therapy
+
+var knowledge = {
+  lastSpokeTo : undefined
+};
+
+function IsAllowedNick(nick){
+  return nick === 'thomaslangston';
+}
+
+function Respond(nick, text, message) {
+  if(knowledge.lastSpokeTo) {
+    console.log("Error - knowledge based response not implemented.");
+  }
+  else {
+    jarvis.say(nick, "Hello, I don't remember if we've spoke to each other before.");
+    jarvis.say(nick, "My name is Jarvis.");
+    jarvis.say(nick, "I'm here to help.");
+  }
+}
