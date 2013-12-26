@@ -4,6 +4,7 @@ var config = {
 };
 
 var irc = require("irc");
+var eliza = require("./eliza/eliza.js");
 
 var jarvis = new irc.Client(config.server, config.botName, { 
   channels : config.channels
@@ -24,7 +25,12 @@ function IsAllowedNick(nick){
 }
 
 function Respond(nick, text, message) {
-  if(knowledge.lastSpokeTo) {
+  var testEliza = true;
+ 
+  if( testEliza ) {
+    jarvis.say(nick, eliza.respond(text));
+  }  
+  else if(knowledge.lastSpokeTo) {
     console.log("Error - knowledge based response not implemented.");
   }
   else {
